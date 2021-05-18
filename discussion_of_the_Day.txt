@@ -1,0 +1,150 @@
+https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html
+
+Package java.util.function
+Functional interfaces provide target types for lambda expressions and method references.
+
+
+Predicate<T>	
+Represents a predicate (boolean-valued function) of one argument.
+--------------------------------------------------------------------
+Interfaces makes our code loosely coupled.
+package com.cts.demo.collection.revise;
+
+import java.util.ArrayList;
+
+public class NameList {
+     private ArrayList<String> names; ======> 1 change
+
+	public ArrayList<String> getNames() { ======> 1 change
+		return names;
+	}
+
+	public void setNames(ArrayList<String> names) {  ====> 1change
+		this.names = names;
+	}
+     
+     
+}
+
+
+package com.cts.demo.collection.revise;
+
+import java.util.ArrayList;
+
+public class CollectionDemo3 {
+
+	public static void main(String[] args) {
+		
+		ArrayList<String> list=new ArrayList<>();   ====> 2 changes
+		list.add("Ram");
+		list.add("Gita");
+		list.add("Soham");
+		NameList nameList=new NameList();
+		nameList.setNames(list);
+		list=nameList.getNames();
+		for(String name : list)
+		{
+			System.out.println(name);
+		}
+		
+		
+	}
+
+}
+----------------------------------------------------------
+In the above code from ArrayList make it to LinkedList . Just count the places where we have to make the 
+changes. So we have to make changes in 5 places if we want to move from ArrayList to LinkedList.
+So let us go by an approach where reference if interface type and object is of ArrayList.
+--------------------------------------------------------------------------------------------------
+package com.cts.demo.collection.revise;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NameList2 {
+     private List<String> names;
+
+	public List<String> getNames() {
+		return names;
+	}
+
+	public void setNames(List<String> names) {
+		this.names = names;
+	}
+     
+     
+}
+
+
+package com.cts.demo.collection.revise;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CollectionDemo4 {
+
+	public static void main(String[] args) {
+		
+		List<String> list=new ArrayList<>(); =====> 1 place
+		list.add("Ram");
+		list.add("Gita");
+		list.add("Soham");
+		NameList2 nameList=new NameList2();
+		nameList.setNames(list);
+		list=nameList.getNames();
+		for(String name : list)
+		{
+			System.out.println(name);
+		}
+		
+		
+	}
+
+}
+In the above code from ArrayList make it to LinkedList .Count the number of places where we have to make a 
+change. We have to make a change in a single place. So this approach is much prefered.
+--------------------------------------------------------------------------------------------------------
+What is Stream?
+Stream represents a sequence of objects from a source, which supports aggregate operations.
+
+Sequence of elements:- A stream provides a set of elements of specific type in a sequential manner.
+Source------ Stream takes Collections, Arrays or I/O
+Aggregate functions: Stream supports aggregate operations like filter,map,limit,reduce,find, match.
+Pipelining------> Most of the stream operations return stream itself so that their result can be pipelined.
+These operations are called intermediate operations and their function is to take input , process them and
+return output to the target. and ultimately we can have terminal operations like collect or count(). 
+Terminal operation is the end after that we cannot perform further operations.
+
+1) Stream will fetch the data from collection
+2) Some operations will be performed to process the data. Two kinds of operations are performed , one
+   intermeditate
+   second is terminal.
+3) Automatic iterations:- Stream operations do the iterantions internally over the source elements provided.
+   In contrast to Collections where explicit iteration is required.
+---------------------------------------------------------------------------------------------------------
+How we can convert the data in a collection or array to stream of data.
+collection.stream();
+
+Collection
+   |
+   |
+   |-----------List
+
+-----------------------------------------------------------------------------------------
+How to process the data with stream , Suppose we want to display the strings which are not empty in an arrayList.
+------------------------------------------------------------------------------------------------
+
+How to process the data with stream , Suppose we want to count the strings which are not empty in an arrayList.
+[ Terminal method count]
+----------------------------------------------------------------------------------------
+Display the names which are starting with T
+Consumer<T>	
+Represents an operation that accepts a single input argument and returns no result.
+forEach is using the Functional interface Consumer
+
+
+
+https://beginnersbook.com/java-tutorial-for-beginners-with-examples/ 
+
+Read the features of Java 8.
+--------------------------------------------------------------------------------------------------------------
